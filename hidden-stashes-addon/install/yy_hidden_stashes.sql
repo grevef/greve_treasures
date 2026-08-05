@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `yy_hidden_stashes` (
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `inventory_id` VARCHAR(100) NOT NULL,
+    `item_name` VARCHAR(50) NOT NULL,
+    `label` VARCHAR(100) NOT NULL,
+    `model` BIGINT NOT NULL,
+    `owner_citizenid` VARCHAR(50) DEFAULT NULL,
+    `x` DOUBLE NOT NULL,
+    `y` DOUBLE NOT NULL,
+    `z` DOUBLE NOT NULL,
+    `buried_z` DOUBLE NOT NULL,
+    `heading` FLOAT NOT NULL DEFAULT 0,
+    `state` ENUM('buried', 'unburied') NOT NULL DEFAULT 'buried',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uq_yy_hidden_stashes_inventory_id` (`inventory_id`),
+    KEY `idx_yy_hidden_stashes_owner` (`owner_citizenid`),
+    KEY `idx_yy_hidden_stashes_state` (`state`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

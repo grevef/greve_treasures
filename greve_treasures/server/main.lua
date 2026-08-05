@@ -4,7 +4,7 @@ local stashSequence = 0
 local function registerInventory(row)
     local config = Config.Stashes[row.item_name]
     if not config then
-        print(('[yy-hidden-stashes] Skipped unknown stash type %s (database id %s).'):format(row.item_name, row.id))
+        print(('[greve-treasures] Skipped unknown stash type %s (database id %s).'):format(row.item_name, row.id))
         return
     end
 
@@ -30,20 +30,20 @@ local function reloadActiveStashes()
         registerInventory(rows[i])
     end
 
-    print(('[yy-hidden-stashes] Loaded %s persistent stashes.'):format(#rows))
+    print(('[greve-treasures] Loaded %s persistent stashes.'):format(#rows))
 end
 
 local function refreshClients()
-    TriggerClientEvent('yy-hidden-stashes:client:reloadStashes', -1)
+    TriggerClientEvent('greve-treasures:client:reloadStashes', -1)
 end
 
 MySQL.ready(reloadActiveStashes)
 
-lib.callback.register('yy-hidden-stashes:server:getStashes', function()
+lib.callback.register('greve-treasures:server:getStashes', function()
     return MySQL.query.await('SELECT * FROM `yy_hidden_stashes`') or {}
 end)
 
-lib.callback.register('yy-hidden-stashes:server:createStash', function(source, itemName, placement)
+lib.callback.register('greve-treasures:server:createStash', function(source, itemName, placement)
     local stash = Config.Stashes[itemName]
     if not stash or type(placement) ~= 'table' then return false, 'Invalid stash placement.' end
 
@@ -91,7 +91,7 @@ lib.callback.register('yy-hidden-stashes:server:createStash', function(source, i
     return inventoryId
 end)
 
-lib.callback.register('yy-hidden-stashes:server:setState', function(source, inventoryId, state)
+lib.callback.register('greve-treasures:server:setState', function(source, inventoryId, state)
     if state ~= 'buried' and state ~= 'unburied' then return false end
     if not activeStashes[inventoryId] then return false end
 
@@ -104,7 +104,7 @@ lib.callback.register('yy-hidden-stashes:server:setState', function(source, inve
     return true
 end)
 
-lib.callback.register('yy-hidden-stashes:server:pickupStash', function(source, inventoryId)
+lib.callback.register('greve-treasures:server:pickupStash', function(source, inventoryId)
     local stash = activeStashes[inventoryId]
     if not stash then return false, 'This stash is no longer available.' end
 

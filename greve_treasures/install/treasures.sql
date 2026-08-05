@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `yy_hidden_stashes` (
+CREATE TABLE IF NOT EXISTS `greve_treasures` (
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `inventory_id` VARCHAR(100) NOT NULL,
     `item_name` VARCHAR(50) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `yy_hidden_stashes` (
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `uq_yy_hidden_stashes_inventory_id` (`inventory_id`),
-    KEY `idx_yy_hidden_stashes_owner` (`owner_citizenid`),
-    KEY `idx_yy_hidden_stashes_state` (`state`)
+    UNIQUE KEY `uq_greve_treasures_inventory_id` (`inventory_id`),
+    KEY `idx_greve_treasures_owner` (`owner_citizenid`),
+    KEY `idx_greve_treasures_state` (`state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

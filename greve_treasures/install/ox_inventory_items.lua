@@ -1,5 +1,3 @@
--- Copy these entries inside the table returned by ox_inventory/data/items.lua.
-
 ['stash_small'] = {
     label = 'Small Stash',
     weight = 2500,
@@ -8,7 +6,7 @@
     consume = 0,
     description = 'A small container that can be buried outdoors.',
     client = {
-        export = 'yy-hidden-stashes.useStash',
+        export = 'greve-treasures.useStash',
     },
 },
 
@@ -20,7 +18,7 @@
     consume = 0,
     description = 'A medium container that can be buried outdoors.',
     client = {
-        export = 'yy-hidden-stashes.useStash',
+        export = 'greve-treasures.useStash',
     },
 },
 
@@ -32,7 +30,7 @@
     consume = 0,
     description = 'A large container that can be buried outdoors.',
     client = {
-        export = 'yy-hidden-stashes.useStash',
+        export = 'greve-treasures.useStash',
     },
 },
 
@@ -44,12 +42,12 @@
     consume = 0,
     description = 'A heavy-duty container that can be buried outdoors.',
     client = {
-        export = 'yy-hidden-stashes.useStash',
+        export = 'greve-treasures.useStash',
     },
 },
 
 ['shovel'] = {
-    label = 'Shovel',
+    label = 'Spade',
     weight = 3000,
     stack = false,
     close = true,

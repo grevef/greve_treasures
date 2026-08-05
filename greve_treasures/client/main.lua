@@ -281,7 +281,7 @@ local function buryObject(object, stashLabel, stashModel, itemName, inventoryId)
             inventoryId = inventoryId,
         })
 
-        lib.callback.await('yy-hidden-stashes:server:setState', false, inventoryId, 'buried')
+        lib.callback.await('greve-treasures:server:setState', false, inventoryId, 'buried')
         notify(('%s buried successfully.'):format(stashLabel), 'success')
     else
         if DoesEntityExist(object) then
@@ -430,7 +430,7 @@ unburyStash = function(stashId)
     ResetEntityAlpha(object)
     placedObjects[#placedObjects + 1] = object
     addUncoveredTarget(object, stash)
-    lib.callback.await('yy-hidden-stashes:server:setState', false, stash.inventoryId, 'unburied')
+    lib.callback.await('greve-treasures:server:setState', false, stash.inventoryId, 'unburied')
     notify(('%s uncovered.'):format(stash.label), 'success')
 
     SetModelAsNoLongerNeeded(stash.model)
@@ -469,7 +469,7 @@ addUncoveredTarget = function(object, stash)
                 isBusy = true
 
                 local pickedUp, errorMessage = lib.callback.await(
-                    'yy-hidden-stashes:server:pickupStash',
+                    'greve-treasures:server:pickupStash',
                     false,
                     stash.inventoryId
                 )
@@ -535,7 +535,7 @@ addUncoveredTarget = function(object, stash)
                     ClearPedTasks(PlayerPedId())
                     isBusy = false
                     notify(('%s reburied despite an animation error.'):format(stash.label), 'success')
-                    print(('[yy-hidden-stashes] Rebury error: %s'):format(burialError))
+                    print(('[greve-treasures] Rebury error: %s'):format(burialError))
                 end
             end,
         },
@@ -563,7 +563,7 @@ registerBuriedStash = function(stash)
                     local ran, unburyError = pcall(unburyStash, stashId)
                     if not ran then
                         isBusy = false
-                        print(('[yy-hidden-stashes] Unbury error: %s'):format(unburyError))
+                        print(('[greve-treasures] Unbury error: %s'):format(unburyError))
                         notify('The stash could not be uncovered.', 'error')
                     end
                 end,
@@ -597,7 +597,7 @@ end
 loadPersistentStashes = function()
     while isBusy or isPlacing do Wait(250) end
 
-    local rows = lib.callback.await('yy-hidden-stashes:server:getStashes', false) or {}
+    local rows = lib.callback.await('greve-treasures:server:getStashes', false) or {}
     clearLoadedStashes()
 
     for i = 1, #rows do
@@ -637,7 +637,7 @@ loadPersistentStashes = function()
     end
 end
 
-RegisterNetEvent('yy-hidden-stashes:client:reloadStashes', function()
+RegisterNetEvent('greve-treasures:client:reloadStashes', function()
     CreateThread(loadPersistentStashes)
 end)
 
@@ -733,7 +733,7 @@ local function startPlacement(itemName)
                         - objectHeight * Config.Placement.buryDepthRatio
                         - Config.Placement.buryExtraDepth
                     local inventoryId, createError = lib.callback.await(
-                        'yy-hidden-stashes:server:createStash',
+                        'greve-treasures:server:createStash',
                         false,
                         itemName,
                         {
